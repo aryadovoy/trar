@@ -1,6 +1,8 @@
-# Restoring deleted messages from supergroup in Telegram (Recent Actions)
+# Telegram Recent Actions' Restoring
 
-You have only 48 hours after deleting and you should be admin (or owner) of group.
+Deleted messages restoring from supergroup in Telegram (from Recent Actions menu).
+
+You have **only 48 hours after deleting** and you should be admin (or owner) of group.
 
 - Update `.env`:
   - Get your `API_ID` and `API_HASH` according to [this instruction](https://core.telegram.org/api/obtaining_api_id#obtaining-api-id)
