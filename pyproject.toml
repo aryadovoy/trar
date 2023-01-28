@@ -1,0 +1,29 @@
+[tool.pdm]
+[tool.pdm.dev-dependencies]
+dev = [
+    "ruff>=0.0.237",
+]
+
+[project]
+name = "Telegram Recent Actions' Restoring"
+version = "0.1"
+description = ""
+authors = [
+    {name = "aryadovoy", email = "ryav.omsk@gmail.com"},
+]
+dependencies = [
+    "telethon>=1.26.1",
+]
+requires-python = ">=3.11"
+license = {text = "MIT"}
+
+[tool.pdm.scripts]
+_.env_file.override = ".env"
+
+[tool.black]
+line-length = 79
+
+[tool.ruff]
+select = ["E", "F", "I", "SIM", "ARG", "T20", "Q", "N", "ANN", "RET", "PT", "C4", "C90"]
+exclude = [".venv"]
+unfixable = ["T20"]
