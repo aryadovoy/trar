@@ -6,7 +6,8 @@ from telethon import TelegramClient
 
 API_ID = os.getenv("API_ID")
 API_HASH = os.getenv("API_HASH")
-CHANNEL = os.getenv("CHANNEL")
+OLD_GROUP_ID = os.getenv("OLD_GROUP_ID")
+NEW_GROUP_ID = os.getenv("NEW_GROUP_ID")
 
 messages = []
 
@@ -18,14 +19,30 @@ client.start()
 
 async def main() -> None:
     logging.info("Restoring was started!")
-    async for event in client.iter_admin_log(int(CHANNEL)):
+    async for event in client.iter_admin_log(int(OLD_GROUP_ID)):
         if event.deleted_message:
             if event.old.media:
+                # Forwarding to a group and reply to it with the data and file id
+                if NEW_GROUP_ID:
+                    logging.info(
+                        f"Forwarding media {event.old.id} to new group"
+                    )
+                    new_msg = await client.send_message(
+                        NEW_GROUP_ID, event.old
+                    )
+                    await client.send_message(
+                        NEW_GROUP_ID,
+                        reply_to=new_msg,
+                        message=f"media/{str(event.old.date)[:-6]}_{event.old.id}",
+                    )
+
+                # NOTE comment out the following to skip local download
                 logging.info(f"Downloading media {event.old.id}")
                 await client.download_media(
                     event.old.media,
                     f"media/{str(event.old.date)[:-6]}_{event.old.id}",
                 )
+
             if event.old.message:
                 logging.info(f"Saving message {event.old.id}")
                 messages.append(

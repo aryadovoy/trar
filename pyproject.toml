@@ -1,14 +1,7 @@
-[tool.pdm]
-[tool.pdm.dev-dependencies]
-dev = [
-    "ruff>=0.0.237",
-    "black>=22.12.0",
-]
-
 [project]
-name = "Telegram Recent Actions' Restoring"
-version = "0.1"
-description = ""
+name = "trar"
+version = "0.2.0"
+description = "Telegram Recent Actions' Restoring"
 authors = [
     {name = "aryadovoy", email = "ryav.omsk@gmail.com"},
 ]
@@ -17,6 +10,13 @@ dependencies = [
 ]
 requires-python = ">=3.11"
 license = {text = "MIT"}
+
+[tool.pdm]
+[tool.pdm.dev-dependencies]
+dev = [
+    "ruff>=0.0.237",
+    "black>=22.12.0",
+]
 
 [tool.pdm.scripts]
 _.env_file.override = ".env"
