@@ -7,6 +7,7 @@ from telethon import TelegramClient
 API_ID = os.getenv("API_ID")
 API_HASH = os.getenv("API_HASH")
 CHANNEL = os.getenv("CHANNEL")
+NEW_GROUP_ID = os.getenv("NEW_GROUP_ID")
 
 messages = []
 
@@ -22,6 +23,15 @@ async def main() -> None:
         if event.deleted_message:
             if event.old.media:
                 logging.info(f"Downloading media {event.old.id}")
+
+                # forward to a group and reply to it with the data and file id
+                new_msg = await client.send_message(NEW_GROUP_ID, event.old)
+                await client.send_message(
+                    NEW_GROUP_ID, 
+                    reply_to=new_msg, 
+                    message=f"media/{str(event.old.date)[:-6]}_{event.old.id}")
+
+                # comment out the following to skip local download
                 await client.download_media(
                     event.old.media,
                     f"media/{str(event.old.date)[:-6]}_{event.old.id}",
